@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="https://www.thymeleaf.org">
+
+<!-- head -->
+<head th:replace="~{fragments/commonHead :: commonHead('메인')}"></head>
+
+<body data-page="home">
+
+	<!-- START : header -->
+	<div th:replace="~{fragments/header :: header}"></div>
+
+	<main class="container">
+    <section class="hero">
+      <div class="hero-overlay">
+        <h1>오늘은 어떤 맛집을<br />찾고 계신가요?</h1>
+        <p>AI 추천, 조건 검색, 지도 탐색으로<br />쉽고 빠르게 찾아보세요!</p>
+        <div class="search-panel">
+          <div class="main-search">
+            <input type="text" id="mainSearchInput" placeholder="예) 비 오는 날 따뜻한 국물 요리, 분위기가 좋은 곳, 강남역 근처 파스타" />
+            <button onclick="goMainResult()">검색</button>
+          </div>
+          <div class="filter-row">
+			<select name="city" id="city">
+			  <option value="all-city">지역 선택</option>
+			  <option th:each="city : ${cities}" th:value="${city}" th:text="${city}"></option>
+			</select>
+						<!--           
+            <select name="city" id="city">
+              <option value="all-city">지역 선택</option>
+              <option value="seoul">서울특별시</option>
+              <option value="incheon">인천광역시</option>
+              <option value="gwangju">광주광역시</option>
+              <option value="daegu">대구광역시</option>
+              <option value="daejeon">대전광역시</option>
+              <option value="busan">부산광역시</option>
+              <option value="ulsan">울산광역시</option>
+              <option value="sejong">세종특별자치시</option>
+              <option value="jeju">제주특별자치도</option>
+              <option value="gyeonggi">경기도</option>
+              <option value="gangwon">강원도</option>
+              <option value="gyeongnam">경상남도</option>
+              <option value="gyeongbuk">경상북도</option>
+              <option value="jeonnam">전라남도</option>
+              <option value="jeonbuk">전라북도</option>
+              <option value="chungnam">충청남도</option>
+              <option value="chungbuk">충청북도</option>
+            </select>
+             -->
+            
+            <select name="food_type" id="food_type">
+              <option value="all-type">음식 종류</option>
+              <option value="korean">한식</option>
+              <option value="chinese">중식</option>
+              <option value="japanese">일식</option>
+              <option value="western">양식</option>
+              <option value="bunsik">분식</option>
+              <option value="cafe_dessert">카페/디저트</option>
+            </select>
+            
+            <select name="price_range" id="price_range">
+              <option value="all-price">가격대</option>
+              <option value="under_10k">1만원 이하</option>
+              <option value="10k_20k">1~2만원</option>
+              <option value="20k_30k">2~3만원</option>
+              <option value="30k_50k">3~5만원</option>
+              <option value="over_50k">5만원 이상</option>
+            </select>
+            
+            <select name="features" id="features">
+              <option value="all-features">상세 조건</option>
+              <option value="rainy_day">비오는 날</option>
+              <option value="healthy">건강식</option>
+              <option value="vegan">비건</option>
+              <option value="solo_dining">혼밥</option>
+              <option value="lunch">점심 추천</option>
+              <option value="gathering">회식 장소</option>
+              <option value="late_night">늦은 시간 까지</option>
+              <option value="date">데이트</option>
+              <option value="good_value">가성비 좋은 곳</option>
+              <option value="moody">분위기 좋은 곳</option>
+              <option value="quiet">조용한 곳</option>
+              <option value="parking">주차 가능</option>
+              <option value="group_seats">단체석 보유</option>
+              <option value="outdoor">야외 좌석</option>
+              <option value="with_baby">아기와 함께</option>
+              <option value="pet_friendly">반려동물 동반</option>
+              <option value="special_day">특별한 날</option>
+            </select>
+            <button id="resetBtn" class="outline">↻ 초기화</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+    
+      <h2>인기있는 카테고리 선택</h2>
+
+	  <div class="popular-category">
+		<button th:each="category : ${foodCategories}"
+				th:text="${category.name}"
+				th:onclick="|location.href='@{/recommend-result(foodType=${category.name})}'|">
+			카테고리
+		</button>
+	  </div>
+
+    </section>
+
+
+    <section class="section">
+      <div class="section-title">
+        <h2>오늘의 추천 맛집</h2>
+        <a th:href="@{/recommend-result}">더보기 ›</a>
+      </div>
+      
+      <div class="card-grid">
+
+		<div class="restaurant-card"
+			th:each="restaurant : ${recommendedRestaurants}"
+			th:onclick="|location.href='@{/restaurants/{id}(id=${restaurant.id})}'|">
+
+			<div class="food-img">
+			    <img th:src="@{/img/restaurant/default-restaurant.png}" th:alt="${restaurant.name}">
+			<!-- 
+				<img th:src="${restaurant.imageUrl != null and !restaurant.imageUrl.isBlank()
+                 ? restaurant.imageUrl
+                 : '/img/restaurant/default-restaurant.png'}"
+					th:alt="${restaurant.name}">
+			 -->
+			</div>
+
+			<div class="card-body">
+				<h3 th:text="${restaurant.name}">맛집명</h3>
+				<p th:text="${restaurant.description}">맛집 설명</p>
+				<div class="distance">
+					📍 <span th:text="${restaurant.address}">주소</span>
+				</div>
+			</div>
+		</div>
+
+	  </div>
+
+    </section>
+    
+  </main>
+
+
+  <!-- START : footer  -->
+  <div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+
+</html>

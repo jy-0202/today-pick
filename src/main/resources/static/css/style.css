@@ -1,0 +1,1580 @@
+@charset "UTF-8";
+
+:root {
+    --primary: #ff6b35;
+    --primary-soft: #fff3ee;
+    --peach: #ffd0be;
+    --gray: #8b8b8b;
+    --text: #171717;
+    --line: #f1d9d0;
+    --shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+/* =========================
+   공통
+========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Pretendard, "Noto Sans KR", Arial, sans-serif;
+    color: var(--text);
+    background: #fff;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* =========================
+   Header
+========================= */
+
+.site-header {
+    height: 112px;
+    border-bottom: 1px solid #eee;
+    background: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+.header-inner {
+    max-width: 1220px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: grid;
+    grid-template-columns: 260px 1fr 260px;
+    align-items: center;
+}
+
+.logo {
+    width: 220px;
+    height: 58px;
+    display: flex;
+    justify-self: start;
+    align-items: center;
+    gap: 10px;
+    font-size: 28px;
+    font-weight: 800;
+    background-image: url("../img/today_pick_logo.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.logo span {
+    display: none;
+}
+
+.logo strong {
+    color: var(--primary);
+}
+
+.logo-icon {
+    font-size: 34px;
+}
+
+.logo.small {
+    min-width: auto;
+    font-size: 26px;
+}
+
+.nav {
+    justify-self: center;
+    display: flex;
+    align-items: center;
+    gap: 80px;
+}
+
+.header-spacer {
+    width: 260px;
+}
+
+.nav a {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 800;
+    border-bottom: 5px solid transparent;
+    white-space: nowrap;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.nav a:hover {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+}
+
+/* =========================
+   Layout
+========================= */
+
+.container {
+    max-width: 1220px;
+    margin: 0 auto;
+    padding: 38px 32px;
+}
+
+.section {
+    margin-top: 46px;
+}
+
+.section h2,
+.panel h2 {
+    font-size: 26px;
+    margin: 0 0 24px;
+}
+
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+/* =========================
+   Main Hero
+========================= */
+
+.hero {
+    min-height: 500px;
+    border-radius: 18px;
+    overflow: hidden;
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+        radial-gradient(circle at 20% 40%, #633100, transparent 32%),
+        radial-gradient(circle at 65% 50%, #c46d18, transparent 28%),
+        radial-gradient(circle at 85% 40%, #4d2200, transparent 30%),
+        #27180f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.hero-overlay {
+    width: 100%;
+    padding: 50px 40px;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 48px;
+    line-height: 1.25;
+    margin: 0 0 24px;
+}
+
+.hero p {
+    font-size: 24px;
+    line-height: 1.45;
+    margin-bottom: 48px;
+}
+
+/* =========================
+   Search
+========================= */
+
+.search-panel {
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid var(--peach);
+    border-radius: 16px;
+    padding: 22px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.main-search {
+    display: flex;
+    gap: 18px;
+}
+
+.main-search input,
+.map-search input {
+    flex: 1;
+    height: 70px;
+    border: 1px solid #e8ddd9;
+    border-radius: 10px;
+    padding: 0 24px;
+    font-size: 18px;
+}
+
+.main-search button,
+.primary {
+    border: 0;
+    background: var(--primary);
+    color: white;
+    border-radius: 10px;
+    padding: 0 34px;
+    font-weight: 800;
+    font-size: 18px;
+    height: 64px;
+}
+
+.outline {
+    border: 1px solid var(--line);
+    background: #fff;
+    color: #6a2a13;
+    border-radius: 10px;
+    height: 56px;
+    padding: 0 24px;
+    font-weight: 700;
+}
+
+.outline:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    background: #f8f8f8;
+}
+
+.filter-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-top: 18px;
+}
+
+select {
+    height: 56px;
+    border: 1px solid #e8ddd9;
+    background: #fff;
+    border-radius: 10px;
+    padding: 0 20px;
+    font-weight: 700;
+}
+
+/* =========================
+   Selected Chips
+========================= */
+
+.selected-chip-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.selected-chip {
+    padding: 10px 18px;
+    border-radius: 12px;
+    background: var(--primary-soft);
+    color: #222;
+    font-weight: 600;
+    border: 1px solid var(--peach);
+}
+
+/* =========================
+   Chips
+========================= */
+
+.chip-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.chip,
+.select-chip {
+    border: 1px solid #f0d8cf;
+    background: var(--primary-soft);
+    border-radius: 999px;
+    padding: 13px 22px;
+    font-weight: 700;
+}
+
+.select-chip {
+    border-radius: 10px;
+    background: #fff8f5;
+    min-width: 94px;
+}
+
+.select-chip.active {
+    color: var(--primary);
+    border-color: var(--primary);
+    background: #fff;
+}
+
+/* =========================
+   인기 카테고리
+========================= */
+
+.popular-category {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.popular-category button {
+    border: 1px solid var(--peach);
+    background: var(--primary-soft);
+    color: var(--text);
+    border-radius: 999px;
+    padding: 11px 20px;
+    font-weight: 700;
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.popular-category button:hover {
+    color: var(--primary);
+    border-color: var(--primary);
+    background: #fff;
+    transform: translateY(-2px);
+}
+
+/* =========================
+   Restaurant Cards
+========================= */
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+.restaurant-card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    transition: 0.2s;
+}
+
+.restaurant-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow);
+    cursor: pointer;
+}
+
+.food-img,
+.detail-image,
+.mini-img {
+    background:
+        radial-gradient(circle at 35% 40%, #ff9b2f, transparent 18%),
+        radial-gradient(circle at 55% 55%, #3e1908, transparent 34%),
+        linear-gradient(135deg, #1f1007, #8b350c);
+}
+
+/* 메인/검색결과 음식점 이미지 */
+.food-img {
+    width: 100%;
+    height: 190px;
+    overflow: hidden;
+    position: relative;
+}
+
+.food-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.img-2 {
+    background:
+        radial-gradient(circle at 50% 42%, #b8521b, transparent 28%),
+        linear-gradient(135deg, #1f1007, #78350d);
+}
+
+.img-3 {
+    background:
+        radial-gradient(circle at 50% 42%, #d9a631, transparent 28%),
+        linear-gradient(135deg, #201207, #7a4010);
+}
+
+.img-4 {
+    background:
+        radial-gradient(circle at 50% 42%, #fff2d8, transparent 22%),
+        linear-gradient(135deg, #301505, #965c22);
+}
+
+.badge,
+.tag-line span,
+.mini-card span {
+    display: inline-block;
+    background: #ffe7dd;
+    color: #6f2b14;
+    padding: 7px 12px;
+    border-radius: 7px;
+    font-weight: 800;
+}
+
+.tag-line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.food-img .badge {
+    position: absolute;
+    left: 14px;
+    bottom: 12px;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 18px;
+}
+
+.card-body h3 {
+    margin: 0 0 12px;
+    font-size: 22px;
+}
+
+.meta {
+    color: var(--primary);
+    font-weight: 900;
+}
+
+.score {
+    margin: 0 0 14px;
+}
+
+.meta span,
+.score span {
+    color: #444;
+    font-weight: 500;
+}
+
+.distance {
+    margin-top: auto;
+    padding-top: 18px;
+    color: #555;
+    line-height: 1.5;
+}
+
+
+
+/* =========================
+   Footer
+========================= */
+
+.footer {
+    margin-top: 36px;
+    padding: 50px 70px 34px;
+    background: linear-gradient(90deg, #fff3ee, #fff);
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 30px;
+    align-items: center;
+}
+
+.footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.footer-brand p {
+    color: var(--gray);
+    margin: 8px 0 0;
+    padding-left: 4px;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: space-around;
+    row-gap: 16px;
+    font-weight: 800;
+}
+
+.copyright {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--gray);
+    margin: 0;
+}
+
+/* =========================
+   공통 Panel
+========================= */
+
+.ai-box,
+.panel,
+.condition-panel,
+.result-summary,
+.detail-panel {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: linear-gradient(135deg, #fff, #fff8f5);
+    padding: 34px;
+}
+
+.panel {
+    margin-top: 34px;
+    background: #fff;
+}
+
+/* =========================
+   AI 추천
+========================= */
+
+.ai-box {
+    display: grid;
+    grid-template-columns: 1.6fr 0.8fr;
+    gap: 32px;
+    align-items: center;
+}
+
+.ai-left h1 {
+    font-size: 40px;
+    margin: 0 0 20px;
+}
+
+.ai-left h1 span {
+    color: var(--primary);
+}
+
+.ai-left p {
+    font-size: 20px;
+}
+
+textarea {
+    width: 100%;
+    height: 190px;
+    resize: none;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 22px;
+    margin: 20px 0;
+    font-size: 18px;
+}
+
+.keyword-line {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.ai-right {
+    text-align: center;
+}
+
+.robot {
+    font-size: 120px;
+    margin: 15px 0;
+}
+
+.speech {
+    display: inline-block;
+    padding: 20px;
+    background: white;
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+}
+
+.large {
+    width: 220px;
+    margin-bottom: 12px;
+}
+
+/* =========================
+   History / Combo
+========================= */
+
+.history-grid,
+.combo-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.history-card,
+.combo-card {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 22px;
+    font-size: 20px;
+    font-weight: 800;
+    background: #fff;
+}
+
+.history-card span {
+    display: block;
+    font-size: 15px;
+    color: var(--gray);
+    margin-top: 18px;
+}
+
+.history-card {
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
+
+.history-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.history-card strong {
+    display: block;
+}
+
+.history-empty {
+    color: var(--gray);
+    margin: 0;
+}
+
+.combo-card strong {
+    display: block;
+    margin: 12px 0;
+    font-size: 20px;
+}
+
+.combo-card p {
+    color: #555;
+    margin-bottom: 0;
+}
+
+/* =========================
+   조건 추천
+========================= */
+
+.option-box {
+    border: 1px solid #f0e3de;
+    border-radius: 14px;
+    background: white;
+    padding: 14px 28px;
+}
+
+.option-row {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 18px;
+    padding: 22px 0;
+    align-items: center;
+    border-bottom: 1px solid #f2e7e2;
+}
+
+.option-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.option-row:last-child {
+    border-bottom: 0;
+}
+
+.option-row.vertical {
+    display: block;
+}
+
+.option-row.vertical strong {
+    display: block;
+    margin-bottom: 20px;
+}
+
+.region-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.region-controls select {
+    flex: 1;
+    min-width: 150px;
+}
+
+/* =========================
+   검색 결과
+========================= */
+
+.result-summary strong {
+    color: var(--primary);
+}
+
+.result-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+    margin-top: 24px;
+}
+
+.selected-tags {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.selected-tags span {
+    background: var(--primary-soft);
+    padding: 14px 22px;
+    border-radius: 8px;
+    font-weight: 800;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 26px;
+}
+
+.view {
+    height: 44px;
+    width: 44px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+}
+
+.price-info {
+    margin: 8px 0;
+    color: #555;
+    font-weight: 600;
+}
+
+.view.active,
+.pagination .active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+.pagination button {
+    width: 44px;
+    height: 44px;
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 8px;
+}
+
+.card-description {
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* =========================
+   맛집 상세
+========================= */
+
+.back {
+    background: none;
+    border: 0;
+    font-weight: 800;
+    margin-bottom: 30px;
+}
+
+.detail-top {
+    display: grid;
+    grid-template-columns: 460px 1fr;
+    gap: 40px;
+}
+
+.detail-image {
+    width: 100%;
+    height: 380px;
+    overflow: hidden;
+    border-radius: 14px;
+    position: relative;
+}
+
+.detail-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.detail-image span {
+    position: absolute;
+    right: 18px;
+    bottom: 18px;
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+.detail-info h1 {
+    font-size: 44px;
+    margin: 0 0 12px;
+}
+
+.detail-info > p:not(.score) {
+    margin: 0 0 20px;
+    line-height: 1.6;
+    color: #444;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 30px;
+    margin-top: 22px;
+}
+
+.info-grid p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+.info-grid strong {
+    margin-left: 10px;
+    font-weight: 500;
+}
+
+/* =========================
+   상세 페이지 Tabs
+========================= */
+
+.tabs {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    margin-top: 38px;
+    border: 1px solid #eee;
+    border-radius: 12px 12px 0 0;
+    overflow: hidden;
+}
+
+.tabs button {
+    height: 70px;
+    border: 0;
+    background: white;
+    font-weight: 800;
+    font-size: 18px;
+}
+
+.tabs button:hover {
+    color: var(--primary);
+    background: #fffaf8;
+}
+
+.tabs button.active {
+    color: var(--primary);
+    border-bottom: 4px solid var(--primary);
+}
+
+.tab-content {
+    display: none;
+    border: 1px solid #eee;
+    border-top: 0;
+    padding: 32px;
+    background: white;
+    border-radius: 0 0 12px 12px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* =========================
+   상세 페이지 Features
+========================= */
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.feature-grid div {
+    background: var(--primary-soft);
+    border-radius: 12px;
+    padding: 18px 14px;
+    text-align: center;
+}
+
+.feature-grid span {
+    display: block;
+    color: #666;
+    margin-top: 8px;
+    font-size: 14px;
+}
+
+/* =========================
+   Map
+========================= */
+
+.map-page .site-header {
+    position: relative;
+}
+
+.map-layout {
+    display: grid;
+    grid-template-columns: clamp(340px, 28vw, 460px) minmax(0, 1fr);
+    height: calc(100vh - 112px);
+}
+
+.map-sidebar {
+    min-width: 0;
+    padding: 28px 24px;
+    border-right: 1px solid var(--line);
+    overflow-y: auto;
+    background: #fff;
+}
+
+.map-canvas {
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+}
+
+.map-empty-message {
+    margin: 24px 0;
+    padding: 20px;
+    color: var(--gray);
+    text-align: center;
+    border: 1px dashed var(--line);
+    border-radius: 10px;
+}
+
+.map-search {
+    display: flex;
+    gap: 14px;
+}
+
+.current-location {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 18px;
+    margin: 18px 0;
+}
+
+.sort-line {
+    display: flex;
+    gap: 18px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 18px;
+}
+
+.sort-line button {
+    background: none;
+    border: 0;
+    font-weight: 800;
+}
+
+.sort-line span {
+    margin-left: auto;
+    color: #777;
+}
+
+.restaurant-overlay {
+    position: relative;
+    width: 280px;
+    padding: 18px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+}
+
+.restaurant-overlay h3 {
+    margin: 10px 28px 8px 0;
+    font-size: 19px;
+}
+
+.restaurant-overlay p {
+    margin: 7px 0;
+    line-height: 1.5;
+}
+
+.overlay-close {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    border: 0;
+    background: transparent;
+    color: #777;
+    font-size: 24px;
+    line-height: 1;
+}
+
+.overlay-close:hover {
+    color: var(--primary);
+}
+
+.overlay-category {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 6px;
+    background: var(--primary-soft);
+    color: #6f2b14;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.overlay-rating {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.overlay-detail {
+    display: block;
+    width: 100%;
+    margin-top: 12px;
+    padding: 9px 12px;
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    color: var(--primary);
+    font-weight: 700;
+    text-align: center;
+}
+
+.overlay-detail:hover {
+    background: var(--primary);
+    color: #fff;
+}
+
+/* =========================
+   Map Restaurant List
+========================= */
+
+.mini-card {
+    display: grid;
+    grid-template-columns: clamp(90px, 8vw, 120px) minmax(0, 1fr);
+    gap: 14px;
+    padding: 14px;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    margin-top: 14px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+.mini-img {
+    width: 100%;
+    height: 100px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.mini-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.mini-card h3 {
+    margin: 0;
+}
+
+.mini-card p {
+    margin: 8px 0;
+    color: #555;
+}
+
+.more {
+    width: 100%;
+    height: 50px;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    border-radius: 8px;
+    background: #fff;
+    margin-top: 14px;
+    font-weight: 800;
+}
+
+.map-canvas {
+    width: 100%;
+    height: 100%;
+    min-height: 650px;
+}
+
+.map-restaurant-item {
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.map-restaurant-item[hidden] {
+    display: none !important;
+}
+
+.map-restaurant-item.active {
+    border-color: var(--primary);
+    box-shadow: 0 8px 24px rgba(255, 107, 53, 0.18);
+}
+
+.mini-card-info {
+    min-width: 0;
+}
+
+.map-category {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 5px 9px;
+    border-radius: 6px;
+    background: var(--primary-soft);
+    color: #6f2b14;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.map-detail-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 84px;
+    height: 34px;
+    margin-top: 10px;
+    padding: 0 14px;
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--primary);
+    font-size: 14px;
+    font-weight: 700;
+    transition: 0.2s;
+}
+
+.map-detail-button:hover {
+    background: var(--primary);
+    color: #fff;
+}
+
+@media (max-width: 900px) {
+    .mini-card {
+        grid-template-columns: 90px minmax(0, 1fr);
+        gap: 12px;
+        padding: 12px;
+    }
+
+    .mini-img {
+        height: 85px;
+    }
+    
+    .map-canvas {
+        min-height: 600px;
+    }
+}
+
+/* =========================
+   임시 Map UI
+   Kakao Map 연동 후 정리 예정
+========================= */
+
+.fake-map {
+    position: relative;
+    overflow: hidden;
+    background:
+        linear-gradient(
+            30deg,
+            transparent 49%,
+            #e9e4de 50%,
+            transparent 51%
+        ) 0 0 / 120px 120px,
+        linear-gradient(
+            120deg,
+            transparent 49%,
+            #e9e4de 50%,
+            transparent 51%
+        ) 0 0 / 140px 140px,
+        #f7f7f2;
+}
+
+.fake-map::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 43%;
+    width: 120%;
+    height: 18px;
+    background: #f5d979;
+    transform: rotate(-13deg);
+}
+
+.fake-map::after {
+    content: "";
+    position: absolute;
+    right: 12%;
+    top: 10%;
+    width: 210px;
+    height: 170px;
+    background: #cfe8c6;
+    border-radius: 50%;
+}
+
+.marker {
+    position: absolute;
+    border: 0;
+    background: var(--primary);
+    color: white;
+    border-radius: 50% 50% 50% 0;
+    width: 44px;
+    height: 44px;
+    transform: rotate(-45deg);
+    z-index: 2;
+}
+
+.marker::first-letter {
+    transform: rotate(45deg);
+}
+
+.m1 {
+    left: 43%;
+    top: 33%;
+}
+
+.m2 {
+    left: 51%;
+    top: 48%;
+}
+
+.m3 {
+    left: 36%;
+    top: 55%;
+}
+
+.m4 {
+    left: 70%;
+    top: 66%;
+}
+
+.map-popup {
+    position: absolute;
+    left: 48%;
+    top: 43%;
+    z-index: 4;
+    width: 330px;
+    display: grid;
+    grid-template-columns: 105px 1fr;
+    gap: 14px;
+    background: white;
+    border-radius: 14px;
+    padding: 16px;
+    box-shadow: var(--shadow);
+}
+
+.map-popup .mini-img {
+    height: 105px;
+}
+
+.map-popup button {
+    width: 100%;
+    margin-top: 10px;
+    height: 42px;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    background: #fff;
+    border-radius: 8px;
+    font-weight: 800;
+}
+
+.map-label {
+    position: absolute;
+    color: #777;
+    font-size: 22px;
+    font-weight: 700;
+    z-index: 1;
+}
+
+.label-1 {
+    left: 34%;
+    top: 42%;
+}
+
+.label-2 {
+    left: 57%;
+    top: 19%;
+}
+
+.label-3 {
+    left: 78%;
+    top: 45%;
+}
+
+.zoom {
+    position: absolute;
+    right: 28px;
+    bottom: 60px;
+    display: grid;
+    gap: 8px;
+}
+
+.zoom button {
+    width: 56px;
+    height: 56px;
+    border: 0;
+    background: white;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    font-size: 26px;
+}
+
+/* =========================
+   Responsive - Map
+========================= */
+
+@media (max-width: 900px) {
+    .map-layout {
+        grid-template-columns: 340px minmax(0, 1fr);
+    }
+
+    .map-sidebar {
+        padding: 20px 18px;
+    }
+}
+
+@media (max-width: 700px) {
+    .map-layout {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+    }
+
+    .map-canvas {
+        order: 1;
+        width: 100%;
+        height: 52vh;
+        min-height: 400px;
+    }
+
+    .map-sidebar {
+        order: 2;
+        width: 100%;
+        max-height: none;
+        overflow: visible;
+        border-right: 0;
+        border-top: 1px solid var(--line);
+    }
+}
+
+/* =========================
+   Responsive - Tablet
+========================= */
+
+@media (max-width: 900px) {
+    .site-header {
+        height: auto;
+        padding: 12px 20px;
+    }
+
+    .header-inner {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .logo {
+        width: 160px;
+        height: 44px;
+        min-width: auto;
+    }
+
+    .nav {
+        width: 100%;
+        height: 52px;
+        justify-content: center;
+        gap: 28px;
+    }
+
+    .nav a {
+        font-size: 16px;
+        white-space: nowrap;
+    }
+
+    .container {
+        padding: 24px 18px;
+    }
+
+	.card-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .filter-row,
+    .history-grid,
+    .combo-grid,
+    .detail-top,
+    .info-grid,
+    .feature-grid,
+    .ai-box {
+        grid-template-columns: 1fr;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+    }
+
+    .main-search {
+        flex-direction: column;
+    }
+
+    .popular-category {
+        gap: 10px;
+    }
+
+    .popular-category button {
+        padding: 10px 16px;
+    }
+
+    .food-img {
+        height: 220px;
+    }
+
+    .detail-image {
+        height: 340px;
+    }
+
+    .tabs button {
+        font-size: 15px;
+    }
+
+    .footer {
+        grid-template-columns: 1fr;
+        padding: 36px 24px;
+    }
+
+    .footer-links {
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: flex-start;
+    }
+
+
+    .fake-map {
+        min-height: 650px;
+    }
+}
+
+/* =========================
+   Responsive - Mobile
+========================= */
+
+@media (max-width: 520px) {
+    .nav {
+        gap: 18px;
+    }
+
+    .nav a {
+        font-size: 14px;
+    }
+
+    .hero {
+        min-height: 420px;
+    }
+
+    .hero-overlay {
+        padding: 36px 20px;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+    }
+
+    .hero p {
+        font-size: 18px;
+        margin-bottom: 32px;
+    }
+
+    .food-img {
+        height: 200px;
+    }
+
+    .detail-image {
+        height: 280px;
+    }
+
+    .detail-info h1 {
+        font-size: 32px;
+    }
+
+    .tabs {
+        grid-template-columns: 1fr;
+        border-radius: 12px;
+    }
+
+    .tabs button {
+        height: 52px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .tabs button.active {
+        border-bottom: 3px solid var(--primary);
+    }
+
+    .tab-content {
+        border-top: 1px solid #eee;
+        border-radius: 12px;
+        margin-top: 12px;
+        padding: 22px;
+    }
+
+    .option-box {
+        padding: 12px 18px;
+    }
+
+    .option-row {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .result-actions,
+    .toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+	.card-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mini-card {
+        grid-template-columns: 110px 1fr;
+    }
+}
+
+@media (max-width: 420px) {
+    .nav {
+        gap: 12px;
+    }
+
+    .nav a {
+        font-size: 13px;
+    }
+
+    .container {
+        padding: 20px 14px;
+    }
+
+    .popular-category button {
+        padding: 9px 14px;
+        font-size: 14px;
+    }
+
+    .detail-image {
+        height: 240px;
+    }
+}

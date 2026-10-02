@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="https://www.thymeleaf.org">
+
+<!-- head -->
+<head th:replace="~{fragments/commonHead :: commonHead('AI 추천')}"></head>
+
+<body data-page="ai">
+
+	<!-- START : header -->
+	<div th:replace="~{fragments/header :: header}"></div>
+
+  <main class="container">
+    <section class="ai-box">
+      <div class="ai-left">
+        <h1>어떤 <span>음식</span>이 당기시나요?</h1>
+        <p>자연어로 입력하면 AI가 딱 맞는 맛집을 추천해드려요!</p>
+        
+        <!-- AI연결 전 임시 연결 : 키워드 검색 안내 -->
+        <p class="ai-notice">
+    	현재는 음식 종류, 가격대, 상세 조건과 검색 키워드를 기반으로 맛집을 추천합니다.
+		AI 자연어 맞춤 추천 기능은 준비 중입니다.
+		</p>
+        
+        <textarea id="aiPrompt" maxlength="200" placeholder="예) 파스타 데이트, 비 오는 날 양식, 가성비 좋은 한식 1~2만원"></textarea>
+<!-- 
+        <textarea id="aiPrompt" maxlength="200" placeholder="예) 비 오는 날 따뜻한 국물 요리, 분위기가 좋은 곳, 강남역 근처 파스타"></textarea>
+ -->        
+        
+        <div class="keyword-line">
+          <strong>💡 키워드 예시</strong>
+          <button class="chip" onclick="addAiKeyword('비 오는 날')">비 오는 날</button>
+		  <button class="chip" onclick="addAiKeyword('데이트')">데이트</button>
+		  <button class="chip" onclick="addAiKeyword('매운 음식')">매운 음식</button>
+          <button class="chip" onclick="addAiKeyword('혼밥')">혼밥</button>
+          <button class="chip" onclick="addAiKeyword('가성비 맛집')">가성비 맛집</button>
+        </div>
+      </div>
+      <div class="ai-right">
+        <div class="speech">맛있는 경험을<br />찾아드릴게요!</div>
+        <div class="robot">🤖</div>
+        <button class="primary large" onclick="goAiResult()">AI 추천 받기 ✨</button>
+        <button class="outline" type="button" onclick="showAiExample()">☷ 예시 문장 보기</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="section-title">
+        <h2>최근 추천 히스토리</h2>
+        <button id="clearAiHistoryBtn" class="text-btn" type="button">🗑 전체 삭제</button>
+      </div>
+      
+      <!-- 실제 localStorage 사용 -->
+      <div class="history-grid" id="aiHistoryGrid"></div>
+      
+	  <!--
+      <div class="history-grid">
+        <div class="history-card">비 오는 날<br />따뜻한 국물 요리<span>2025.05.18</span></div>
+        <div class="history-card">강남역 근처<br />파스타 맛집<span>2025.05.17</span></div>
+        <div class="history-card">가성비 좋은<br />한식 맛집<span>2025.05.15</span></div>
+        <div class="history-card">분위기 좋은<br />데이트 장소<span>2025.05.14</span></div>
+      </div>
+       -->
+    </section>
+
+    <section class="panel">
+      <h2>추천 키워드</h2>
+      
+      <div class="chip-wrap wide">
+		<button class="chip" type="button" onclick="addAiKeyword('한식')">한식</button>
+		<button class="chip" type="button" onclick="addAiKeyword('일식')">일식</button>
+		<button class="chip" type="button" onclick="addAiKeyword('중식')">중식</button>
+		<button class="chip" type="button" onclick="addAiKeyword('양식')">양식</button>
+		<button class="chip" type="button" onclick="addAiKeyword('분식')">분식</button>
+		<button class="chip" type="button" onclick="addAiKeyword('카페/디저트')">카페/디저트</button>
+		<button class="chip" type="button" onclick="addAiKeyword('주점')">주점</button>
+		<button class="chip" type="button" onclick="addAiKeyword('고기')">고기</button>
+		<button class="chip" type="button" onclick="addAiKeyword('데이트')">데이트</button>
+		<button class="chip" type="button" onclick="addAiKeyword('가족 외식')">가족 외식</button>
+		<button class="chip" type="button" onclick="addAiKeyword('혼밥')">혼밥</button>
+		<button class="chip" type="button" onclick="addAiKeyword('점심')">점심</button>
+		<button class="chip" type="button" onclick="addAiKeyword('가성비')">가성비</button>
+		<button class="chip" type="button" onclick="addAiKeyword('분위기 좋은')">분위기 좋은</button>
+		<button class="chip" type="button" onclick="addAiKeyword('매운 음식')">매운 음식</button>
+	  </div>
+      <!-- 
+      <div class="chip-wrap wide">
+        <button class="chip">한식</button>
+        <button class="chip">일식</button>
+        <button class="chip">중식</button>
+        <button class="chip">양식</button>
+        <button class="chip">분식</button>
+        <button class="chip">카페/디저트</button>
+        <button class="chip">술집</button>
+        <button class="chip">고기</button>
+        <button class="chip">데이트</button>
+        <button class="chip">가족 외식</button>
+        <button class="chip">혼밥</button>
+        <button class="chip">점심</button>
+        <button class="chip">가성비</button>
+        <button class="chip">분위기 좋은</button>
+        <button class="chip">매운 음식</button>
+      </div> -->
+    </section>
+  </main>
+
+  <!-- START : footer  -->
+  <div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="https://www.thymeleaf.org">
+
+<!-- head -->
+<head th:replace="~{fragments/commonHead :: commonHead('맛집 상세')}"></head>
+
+<body data-page="condition">
+
+	<!-- START : header -->
+	<div th:replace="~{fragments/header :: header}"></div>
+
+  <main class="container">
+    <section class="detail-panel">
+      <button class="back" onclick="history.back()">← 목록으로 돌아가기</button>
+      <div class="detail-top">
+<!--         <div class="detail-image img-1"><span>1 / 18</span></div> -->
+        <div class="detail-image img-1">
+          <img th:src="@{/img/restaurant/default-restaurant.png}" th:alt="${restaurant.name}">
+<!-- 
+        	<img th:src="${restaurant.imageUrl != null and !restaurant.imageUrl.isBlank()
+						? restaurant.imageUrl
+						: '/img/restaurant/default-restaurant.png'}" 
+				th:alt="${restaurant.name}"> 
+ -->
+		</div>
+         
+        <div class="detail-info">
+        
+          <div class="tag-line">
+			<span th:each="category : ${restaurant.categories}" th:text="${category}"></span>
+			<span th:each="tag : ${restaurant.tags}" th:text="${tag}"></span>
+		  </div>
+          
+          <h1 th:text="${restaurant.name}">맛집 이름</h1>
+          <p class="score">
+            ★ <span th:text="${averageRating}">0.0</span>
+    		<span th:text="|(${#lists.size(reviews)})|">(0)</span>
+		  </p>
+          <p th:text="${restaurant.description}">맛집 설명</p>
+          
+          <div class="info-grid">
+			<p>📍 <strong th:text="${restaurant.address}">주소</strong></p>
+			<p>☎️ <strong th:text="${restaurant.phone}">전화번호</strong></p>
+			<p>💰 <strong th:text="${restaurant.priceRange}">가격대</strong></p>
+			<p>🕒 <strong th:text="${restaurant.openingHours}">영업시간</strong></p>
+		  </div>
+		  
+        </div>
+      </div>
+      
+      
+      
+      <div class="tabs">
+		  <button class="active" data-tab="intro">소개</button>
+		  <button data-tab="menu">메뉴</button>
+		  <button data-tab="aiReview">AI 리뷰 요약</button>
+		  <button data-tab="review" th:text="|리뷰 (${#lists.size(reviews)})|">리뷰</button>
+		  <button data-tab="location">위치</button>
+	  </div>
+		
+		<!-- 소개 탭 -->
+	  <div class="tab-content active" id="intro">
+		
+	    <!-- 맛집 소개 글 : DB 에서  -->
+	    <p th:text="${restaurant.description}">
+	        맛집 설명
+	    </p>
+
+	    <!-- 목업 부분 -->
+	    <div class="feature-grid" th:if="${not #lists.isEmpty(restaurant.tags)}">
+		  <div th:each="tag : ${restaurant.tags}">
+			<strong th:text="${tag}">상세 조건</strong>
+		  </div>
+		</div>
+
+		<p class="empty-message" th:if="${#lists.isEmpty(restaurant.tags)}">
+		  등록된 상세 정보가 없습니다.
+		</p>
+
+
+	  </div>
+	  
+		<!-- 메뉴 탭 -->
+	  <div class="tab-content" id="menu">
+		  <div class="menu-list">
+		
+		    <div
+		      class="menu-item"
+		      th:each="menu : ${menus}">
+		
+		      <span
+		        class="menu-name"
+		        th:text="${menu.menuName}">
+		        메뉴 이름
+		      </span>
+		
+		      <span
+		        class="menu-price"
+		        th:text="${menu.price != null
+		          ? #numbers.formatInteger(menu.price, 3, 'COMMA') + '원'
+		          : '가격 정보 없음'}">
+		        10,000원
+		      </span>
+		
+		    </div>
+		
+		    <p
+		      class="empty-message"
+		      th:if="${#lists.isEmpty(menus)}">
+		      등록된 메뉴가 없습니다.
+		    </p>
+		
+		  </div>
+	  </div>
+		
+		<!-- AI 리뷰 요약 탭 -->
+	  	<div class="tab-content" id="aiReview">
+
+			<div th:if="${aiReviewSummary == null}">
+				<p>아직 AI 리뷰 요약 정보가 없습니다.</p>
+			</div>
+
+			<div th:unless="${aiReviewSummary == null}">
+				<p th:text="${aiReviewSummary.summary}"></p>
+				<p>
+					긍정 키워드: <span th:text="${aiReviewSummary.positiveKeywords}"></span>
+				</p>
+				<p>
+					부정 키워드: <span th:text="${aiReviewSummary.negativeKeywords}"></span>
+				</p>
+			</div>
+
+		</div>
+		
+		
+		<!-- 리뷰 탭 -->
+		<div class="tab-content" id="review">
+			<div th:if="${#lists.isEmpty(reviews)}">
+				<p>등록된 리뷰가 없습니다.</p>
+			</div>
+			
+			<div th:unless="${#lists.isEmpty(reviews)}">
+				<div th:each="review : ${reviews}" class="review-item">
+					<p>
+						평점 : <span th:text="${review.rating}"></span>
+					</p>
+					
+					<p th:text="${review.content}"></p>
+					
+					<p th:text="${review.createdAt}"></p>
+				</div>
+			</div>
+			
+		</div>
+		
+		<!-- 위치 탭 -->
+		<div class="tab-content" id="location">
+		  <p th:text="${restaurant.address}">
+		    서울특별시 강남구 예시 주소
+		  </p>
+	  </div>
+		      
+      
+      
+<!--	기존 코드
+
+      <div class="tabs">
+        <button class="active" data-tab="intro">소개</button>
+        <button data-tab="menu">메뉴</button>
+        <button data-tab="aiReview">AI 리뷰 요약</button>
+        <button data-tab="review">리뷰 (1,256)</button>
+        <button data-tab="location">위치</button>
+      </div>
+      <div class="tab-content">
+        <p>신선한 재료로 정성스럽게 끓여낸 국물 요리와 다양한 반찬으로 구성된 한상차림을 맛볼 수 있는 한식 맛집입니다.</p>
+        <div class="feature-grid">
+          <div>🍱 <strong>점심 추천</strong><span>든든한 점심 메뉴</span></div>
+          <div>☔ <strong>비 오는 날</strong><span>따뜻한 국물 요리</span></div>
+          <div>👥 <strong>단체 모임</strong><span>최대 40명 수용</span></div>
+          <div>📅 <strong>예약 가능</strong><span>네이버 예약</span></div>
+          <div>🛍️ <strong>포장 가능</strong><span>모든 메뉴 포장</span></div>
+        </div>
+      </div>
+   -->   
+      
+      
+    </section>
+  </main>
+
+  <!-- START : footer  -->
+  <div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+
+</html>

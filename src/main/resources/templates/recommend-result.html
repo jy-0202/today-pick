@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="https://www.thymeleaf.org">
+
+<!-- head -->
+<head th:replace="~{fragments/commonHead :: commonHead('추천 결과')}"></head>
+
+<body data-page="condition">
+  
+  <!-- START : header -->
+  <div th:replace="~{fragments/header :: header}"></div>
+  
+  <main class="container">
+    <section class="result-summary">
+		<h1>추천 결과</h1>
+
+		<div class="selected-chip-wrap"
+			th:if="${(keyword != null and !#strings.isEmpty(keyword))
+			or city != null or district != null or town != null
+			or not #lists.isEmpty(foodType)
+			or priceRange != null
+			or not #lists.isEmpty(feature)}">
+			
+			<!-- 검색어 -->
+			<span class="selected-chip" th:if="${keyword != null and !#strings.isEmpty(keyword)}" th:text="${keyword}"></span>
+
+			<!-- 지역 -->
+			<span class="selected-chip" th:if="${city != null}" th:text="${city}"></span> 
+			<span class="selected-chip" th:if="${district != null}" th:text="${district}"></span>
+			<span class="selected-chip" th:if="${town != null}" th:text="${town}"></span>
+
+			<!-- 음식 종류 -->
+			<span class="selected-chip" th:each="food : ${foodType}" th:text="${food}"></span>
+
+			<!-- 가격대 -->
+			<span class="selected-chip" th:if="${priceRange != null}" th:text="${priceRange}"></span>
+
+			<!-- 상세 조건 -->
+			<span class="selected-chip" th:each="condition : ${feature}" th:text="${condition}"></span>
+		</div>
+
+		<div class="result-actions">
+			<button class="primary" th:onclick="|location.href='@{/condition-recommend}'|">
+				▽ 조건 다시 선택하기
+			</button>
+		</div>
+
+	</section>
+
+    <section class="result-list panel">
+      <div class="toolbar">
+        <label>정렬 기준
+          <select>
+            <option>추천순</option>
+            <!-- <option>거리순</option>
+            <option>평점순</option> -->
+          </select>
+        </label>
+        <div>총
+        	<strong th:text="${#lists.size(restaurants)}">검색결과수</strong>개
+			<!-- 목록/그리드 보기 전환 기능 구현 후 활성화
+         	<button class="view active">▦</button>
+        	<button class="view">☷</button>
+        	-->
+        </div>
+      </div>
+
+      <div class="empty-result"
+         th:if="${#lists.isEmpty(restaurants)}">
+        조건에 맞는 맛집을 찾지 못했습니다.
+      </div>
+
+
+      <div class="card-grid result"
+      		th:if="${not #lists.isEmpty(restaurants)}">
+
+        <div class="restaurant-card" 
+        	th:each="restaurant : ${restaurants}"
+        	th:onclick="|location.href='@{/restaurants/{id}(id=${restaurant.id})}'|">
+        	
+          <div class="food-img img-1">
+            <img th:src="@{/img/restaurant/default-restaurant.png}" th:alt="${restaurant.name}">
+          	<span class="badge"
+				th:text="${#lists.isEmpty(restaurant.categories) ? '맛집' : restaurant.categories[0]}">
+			  맛집
+			</span>
+          	
+          </div>
+          
+          <div class="card-body">
+          
+            <h3 th:text="${restaurant.name}">식당 이름</h3>
+            
+            <p class="meta" th:if="${restaurant.reviewCount != null and restaurant.reviewCount > 0}">
+			  ★ <span th:text="${restaurant.averageRating}">0.0</span>
+			  <span th:text="|(${restaurant.reviewCount})|">(0)</span>
+			</p>
+			
+			<p class="meta" th:if="${restaurant.reviewCount == null or restaurant.reviewCount == 0}">
+				등록된 리뷰가 없습니다.
+			</p>
+			
+			<p class="price-info" 
+				th:if="${restaurant.priceRange != null and !restaurant.priceRange.isBlank()}" 
+				th:text="${restaurant.priceRange}">
+			  가격대
+			</p>
+            
+            <p class="card-description" 
+            	th:text="${restaurant.description != null and !restaurant.description.isBlank()
+				? restaurant.description
+				: '등록된 맛집 소개가 없습니다.'}">
+			  맛집 설명
+			</p>
+            
+            
+            <div class="distance" 
+            	th:text="${restaurant.address}">식당 주소</div>
+            
+          </div>
+        </div> 
+      </div>
+      
+      <!-- 페이지네이션은 추후 구현
+      <div class="pagination">
+        <button>‹</button>
+        <button
+          class="active">1</button>
+        <button>2</button>
+        <button>3</button>
+        <span>...</span>
+        <button>6</button>
+        <button>›</button>
+      </div>
+      -->
+      
+    </section>
+  </main>
+
+
+  <!-- START : footer  -->
+  <div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+
+</html>

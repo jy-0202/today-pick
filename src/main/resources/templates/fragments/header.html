@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+  <header th:fragment="header" class="site-header">
+    <div class="header-inner">
+      <a th:href="@{/}" class="logo">
+        <span class="logo-icon">🍽️</span>
+        <span>오늘의 <strong>Pick!</strong></span>
+      </a>
+
+      <nav class="nav">
+        <a th:href="@{/ai-recommend}"  data-page="ai">AI 추천</a>
+        <a th:href="@{/condition-recommend}" data-page="condition">조건 추천</a>
+        <a th:href="@{/map-explore}" data-page="map">내 주변 맛집</a>
+      </nav>
+
+      <div class="header-spacer"></div>
+    </div>
+  </header>
+
+</body>
+</html>
