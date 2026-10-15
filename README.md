@@ -207,7 +207,9 @@ Repository
 
 ## Run
 
-**Requirements** - Java 21 - MySQL
+**Requirements**
+- Java 21
+- MySQL
 
 프로젝트 실행 전 MySQL 데이터베이스 연결 정보를 설정해야 합니다. DB 접속
 정보 등 보안이 필요한 값은 Git에 포함하지 않고 별도 설정 파일로
